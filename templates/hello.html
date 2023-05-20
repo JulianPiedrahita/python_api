@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+
+{% block nombre %}
+    Hola {{super()}}  al sisteman de parques de bolivar
+{% endblock %}
+
+
+{%block content %}
+    {% if user_ip %}
+    <h1>Hola desde el templete, tu IP es {{user_ip}}</h1>
+{% else %}
+    <a href="{{ url_for('index')}}"> Ir a inicio </a>
+{% endif %}
+
+{% for data_user in data_user %}
+<ul>
+   <li>{{data_user}}</li>
+</ul>
+{% endfor %}
+{% endblock %}
+
+
+</body>
+</html>
