@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+  {{ super() }}
+  404
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <center>
+      <img src="/static/images/logo.png">
+    </center>
+  </div>
+<br>
+  <div class="container">
+    {{ wtf.quick_form(login_form) }}
+  </div>
+{% endblock %}
+
+    {% block scripts %}
+        {{ super() }}
+    {% endblock %}

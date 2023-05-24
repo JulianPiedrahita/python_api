@@ -1,6 +1,7 @@
 from flask import  request, make_response, \
      redirect, render_template,session,url_for,flash
 from app import create_app
+from app.forms import LoginForm
 from app.register_form import RegisterForm
 
 import unittest
@@ -24,19 +25,39 @@ def server_error(error):
 def index():
     user_ip = request.remote_addr
 
-    response = make_response(redirect('/home'))
+    response = make_response(redirect('/login'))
     response.set_cookie('user_ip', user_ip)
 
     return response
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    user_ip = session.get('user_ip')
+    login_form = LoginForm()
+    username = session.get('username')
+    context = {
+        'user_ip': user_ip,
+        'username': username,
+        'login_form': login_form,
+    }
+    if login_form.validate_on_submit():
+        username = login_form.username.data
+        session['username'] = username
+
+        flash('Ingreso con exito!')
+
+        return redirect(url_for('home'))
+
+    return render_template('login.html', **context)
+
 @app.route('/home')
 def home():
-    user_ip = request.cookies.get('user_ip')
+    user_ip = session.get('user_ip')
+
     context = {
         'user_ip': user_ip,
     }
-
-    return render_template('base.html', **context)
+    return render_template('table_inicio.html', **context)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -59,4 +80,6 @@ def register():
         return redirect(url_for('home'))
 
     return render_template('register.html', **context)
+
+
 

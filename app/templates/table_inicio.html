@@ -6,6 +6,10 @@
 
 {% block body %}
 
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
+
     {% for message in get_flashed_messages() %}
         <div class="alert-success alert-dismissible">
             <button type="button" data-dismiss="alert" class="close">
@@ -16,7 +20,7 @@
     {% endfor %}
 
     {% block content %}
-        {% include 'login.html' %}
+        {% include 'table.html' %}
     {% endblock %}
 
 {% endblock %}
