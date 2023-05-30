@@ -50,15 +50,6 @@ def login():
 
     return render_template('login.html', **context)
 
-@app.route('/home')
-def home():
-    user_ip = session.get('user_ip')
-
-    context = {
-        'user_ip': user_ip,
-    }
-    return render_template('table_inicio.html', **context)
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     user_ip = session.get('user_ip')
@@ -80,6 +71,15 @@ def register():
         return redirect(url_for('home'))
 
     return render_template('register.html', **context)
+
+@app.route('/home')
+def home():
+    user_ip = session.get('user_ip')
+
+    context = {
+        'user_ip': user_ip,
+    }
+    return render_template('table_inicio.html', **context)
 
 
 
